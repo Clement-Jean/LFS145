@@ -7,7 +7,6 @@
 		"--disable", "missing-function-docstring",
 		"--disable", "missing-module-docstring"
 	],
-
 	"[proto3]": {
 		"editor.tabSize": 2,
 		"editor.insertSpaces": true,
