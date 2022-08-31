@@ -2,6 +2,7 @@ import sys
 import proto.account_pb2 as account_pb
 import proto.user_pb2 as user_pb
 import proto.product_pb2 as product_pb
+import proto.phone_book_pb2 as phone_book_pb
 
 def account():
     return account_pb.Account(
@@ -12,14 +13,6 @@ def account():
     )
 
 def user():
-    message = user_pb.User()
-    message.id = 42
-    message.name = "Linus Torvalds"
-    message.follows.add(id=0, name="Linux Foundation")
-    message.follows.add(id=1, name="Clement Jean")
-    return message
-
-def user2():
     return user_pb.User(
         id=42,
         name="Linus Torvalds",
@@ -29,18 +22,42 @@ def user2():
         ]
     )
 
+def user2():
+    message = user_pb.User()
+    message.id = 42
+    message.name = "Linus Torvalds"
+    message.follows.add(id=0, name="Linux Foundation")
+    message.follows.add(id=1, name="Clement Jean")
+    return message
+
 def product():
     return product_pb.Product(
         id=42,
         product_type=product_pb.ProductType.PANTS # 1
     )
 
+def phone_book():
+    return phone_book_pb.PhoneBook(
+        phones={
+            "Linus Torvald": "11111111",
+            "Clement Jean": "22222222"
+        }
+    )
+
+def phone_book2():
+    book = phone_book_pb.PhoneBook()
+    book.phones["Linus Torvald"] = "11111111"
+    book.phones["Clement Jean"] = "22222222"
+    return book
+
 if __name__ == "__main__":
     fns = {
         "account": account,
         "user": user,
         "user2": user2,
-        "product": product
+        "product": product,
+        "phone": phone_book,
+        "phone2": phone_book2        
     }
 
     if len(sys.argv) != 2:
