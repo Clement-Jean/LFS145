@@ -32,7 +32,7 @@ def user2():
 def product():
     return product_pb.Product(
         id=42,
-        product_type = product_pb.ProductType.PANTS # 1
+        product_type=product_pb.ProductType.PANTS # 1
     )
 
 if __name__ == "__main__":
@@ -45,12 +45,12 @@ if __name__ == "__main__":
 
     if len(sys.argv) != 2:
         print(f"Usage: main.py [{'|'.join(fns)}]")
-        exit()
+        sys.exit()
 
     fn = fns.get(sys.argv[1], None)
 
     if not fn:
         print(f"Unknown function: \"{sys.argv[1]}\"")
-        exit()
+        sys.exit()
 
     print(fn())
