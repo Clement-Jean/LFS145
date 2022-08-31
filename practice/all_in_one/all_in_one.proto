@@ -2,7 +2,7 @@ syntax = "proto3";
 
 message Article {
   string text = 1;
-  int32 foo = 2 [(my_field_option) = 4.5];
+  int32 foo = 2;
 }
 
 enum VideoType {
