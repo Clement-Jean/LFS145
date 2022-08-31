@@ -14,8 +14,8 @@ def user():
     message = user_pb.User()
     message.id = 42
     message.name = "Linus Torvalds"
-    message.friends.add(id=0, name="Clement Jean")
-    message.friends.add(id=1, name="Someone else")
+    message.follows.add(id=0, name="Linux Foundation")
+    message.follows.add(id=1, name="Clement Jean")
     return message
 
 if __name__ == "__main__":
