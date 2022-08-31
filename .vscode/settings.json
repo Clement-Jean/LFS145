@@ -1,0 +1,10 @@
+{
+	"python.linting.enabled": true,
+	"python.linting.pylintEnabled": true,
+	"python.linting.pylintPath": "./python/venv/bin/pylint",
+	"python.linting.pylintArgs": [
+		"--disable", "no-member",
+		"--disable", "missing-function-docstring",
+		"--disable", "missing-module-docstring"
+	],
+}
