@@ -99,6 +99,18 @@ def field_mask():
     fm.MergeMessage(acc, iiv)
     return iiv
 
+def field_mask2():
+    mask = field_mask_pb.FieldMask()
+    mask.FromJsonString('id,name')
+    mask2 = field_mask_pb.FieldMask()
+    mask2.FromJsonString('id,isVerified')
+    mask3 = field_mask_pb.FieldMask()
+    mask3.Union(mask, mask2)
+    acc = account()
+    iniv = account_pb.Account()
+    mask3.MergeMessage(acc, iniv)
+    return iniv
+
 if __name__ == '__main__':
     fns = {
         'account': account,
@@ -112,7 +124,8 @@ if __name__ == '__main__':
         'any': any_value,
         'duration': duration,
         'duration2': duration2,
-        'fm': field_mask
+        'fm': field_mask,
+        'fm2': field_mask2
     }
 
     if len(sys.argv) != 2:
