@@ -1,10 +1,12 @@
 import sys
+import datetime
 import proto.account_pb2 as account_pb
 import proto.user_pb2 as user_pb
 import proto.product_pb2 as product_pb
 import proto.phone_book_pb2 as phone_book_pb
 import proto.login_pb2 as login_pb
 import google.protobuf.any_pb2 as any_pb
+import google.protobuf.duration_pb2 as duration_pb
 
 def account():
     return account_pb.Account(
@@ -71,6 +73,18 @@ def any_value():
         any_pb.Any(value=bytes('test', 'utf-8'))
     ]
 
+def duration():
+    return duration_pb.Duration(
+        seconds=3,
+        nanos=0,
+    )
+
+def duration2():
+    td = datetime.timedelta(days=3, minutes=10, microseconds=15)
+    d = duration_pb.Duration()
+    d.FromTimedelta(td)
+    return d
+
 if __name__ == '__main__':
     fns = {
         'account': account,
@@ -81,7 +95,9 @@ if __name__ == '__main__':
         'phone2': phone_book2,
         'logine': login_error,
         'logins': login_success,
-        'any': any_value
+        'any': any_value,
+        'duration': duration,
+        'duration2': duration2
     }
 
     if len(sys.argv) != 2:
