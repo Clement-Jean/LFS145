@@ -3,6 +3,7 @@ import proto.account_pb2 as account_pb
 import proto.user_pb2 as user_pb
 import proto.product_pb2 as product_pb
 import proto.phone_book_pb2 as phone_book_pb
+import proto.login_pb2 as login_pb
 
 def account():
     return account_pb.Account(
@@ -50,6 +51,16 @@ def phone_book2():
     book.phones["Clement Jean"] = "22222222"
     return book
 
+def login_error():
+    result = login_pb.LoginResult()
+    result.error = "The username or password are not correct"
+    return result
+
+def login_success():
+    return login_pb.LoginResult(
+        token = login_pb.Token()
+    )
+
 if __name__ == "__main__":
     fns = {
         "account": account,
@@ -57,7 +68,9 @@ if __name__ == "__main__":
         "user2": user2,
         "product": product,
         "phone": phone_book,
-        "phone2": phone_book2        
+        "phone2": phone_book2,
+        "logine": login_error,
+        "logins": login_success,
     }
 
     if len(sys.argv) != 2:
