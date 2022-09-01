@@ -41,7 +41,7 @@ def user2():
 def product():
     return product_pb.Product(
         id=42,
-        product_type=product_pb.ProductType.PANTS # 1
+        type=product_pb.ProductType.PANTS # 1
     )
 
 def phone_book():
@@ -115,6 +115,7 @@ def field_mask2():
     mask3 = field_mask_pb.FieldMask()
     mask3.Union(mask, mask2)
     acc = account()
+    print(acc)
     iniv = account_pb.Account()
     mask3.MergeMessage(acc, iniv)
     return iniv
@@ -122,7 +123,7 @@ def field_mask2():
 def struct():
     return struct_pb.Struct(
         fields={
-            "id": struct_pb.Value(number_value=float(42)),
+            "id": struct_pb.Value(number_value=42.0),
             "name": struct_pb.Value(string_value="Linus Torvalds"),
             "is_verified": struct_pb.Value(bool_value=True),
             "follow_ids": struct_pb.Value(list_value=struct_pb.ListValue(
@@ -133,6 +134,11 @@ def struct():
             )),
         }
     )
+
+def struct2():
+    s = struct()
+
+    return s['name']
 
 def wrapper():
     return [
@@ -159,6 +165,7 @@ if __name__ == '__main__':
         'fm': field_mask,
         'fm2': field_mask2,
         'struct': struct,
+        'struct2': struct2,
         'wrapper': wrapper
     }
 
@@ -169,7 +176,7 @@ if __name__ == '__main__':
     fn = fns.get(sys.argv[1], None)
 
     if not fn:
-        print(f'Unknown function: \'{sys.argv[1]}\'')
+        print(f'Unknown function: \"{sys.argv[1]}\"proto')
         sys.exit()
 
     print(fn())

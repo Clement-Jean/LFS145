@@ -11,5 +11,5 @@ enum ProductType {
 
 message Product {
   uint64 id = 1;
-  ProductType product_type = 2;
+  ProductType type = 2;
 }
