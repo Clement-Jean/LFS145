@@ -8,6 +8,7 @@ import proto.login_pb2 as login_pb
 import google.protobuf.any_pb2 as any_pb
 import google.protobuf.duration_pb2 as duration_pb
 import google.protobuf.field_mask_pb2 as field_mask_pb
+import google.protobuf.struct_pb2 as struct_pb
 
 def account():
     return account_pb.Account(
@@ -111,6 +112,21 @@ def field_mask2():
     mask3.MergeMessage(acc, iniv)
     return iniv
 
+def struct():
+    return struct_pb.Struct(
+        fields={
+            "id": struct_pb.Value(number_value=float(42)),
+            "name": struct_pb.Value(string_value="Linus Torvalds"),
+            "is_verified": struct_pb.Value(bool_value=True),
+            "follow_ids": struct_pb.Value(list_value=struct_pb.ListValue(
+                values=[
+                    struct_pb.Value(number_value=float(0)),
+                    struct_pb.Value(number_value=float(1)),
+                ]
+            )),
+        }
+    )
+
 if __name__ == '__main__':
     fns = {
         'account': account,
@@ -125,7 +141,8 @@ if __name__ == '__main__':
         'duration': duration,
         'duration2': duration2,
         'fm': field_mask,
-        'fm2': field_mask2
+        'fm2': field_mask2,
+        'struct': struct,
     }
 
     if len(sys.argv) != 2:
