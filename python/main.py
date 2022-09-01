@@ -7,9 +7,10 @@ import proto.phone_book_pb2 as phone_book_pb
 import proto.login_pb2 as login_pb
 import google.protobuf.any_pb2 as any_pb
 import google.protobuf.duration_pb2 as duration_pb
+import google.protobuf.timestamp_pb2 as timestamp_pb
 import google.protobuf.field_mask_pb2 as field_mask_pb
 import google.protobuf.struct_pb2 as struct_pb
-import google.protobuf.timestamp_pb2 as timestamp_pb
+import google.protobuf.wrappers_pb2 as wrappers_pb
 
 def account():
     return account_pb.Account(
@@ -133,6 +134,14 @@ def struct():
         }
     )
 
+def wrapper():
+    return [
+        wrappers_pb.BoolValue(value=True),
+        wrappers_pb.BytesValue(value=b'these are bytes'),
+        wrappers_pb.FloatValue(value=42.0),
+        # etc...
+    ]
+
 if __name__ == '__main__':
     fns = {
         'account': account,
@@ -146,10 +155,11 @@ if __name__ == '__main__':
         'any': any_value,
         'duration': duration,
         'duration2': duration2,
+        'time': timestamp,
         'fm': field_mask,
         'fm2': field_mask2,
         'struct': struct,
-        'time': timestamp
+        'wrapper': wrapper
     }
 
     if len(sys.argv) != 2:
