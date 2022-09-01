@@ -7,6 +7,7 @@ import proto.phone_book_pb2 as phone_book_pb
 import proto.login_pb2 as login_pb
 import google.protobuf.any_pb2 as any_pb
 import google.protobuf.duration_pb2 as duration_pb
+import google.protobuf.field_mask_pb2 as field_mask_pb
 
 def account():
     return account_pb.Account(
@@ -85,6 +86,19 @@ def duration2():
     d.FromTimedelta(td)
     return d
 
+def field_mask():
+    acc = account()
+    print(acc)
+    fm = field_mask_pb.FieldMask(
+        paths=[
+            'id',
+            'is_verified'
+        ]
+    )
+    iiv = account_pb.Account()
+    fm.MergeMessage(acc, iiv)
+    return iiv
+
 if __name__ == '__main__':
     fns = {
         'account': account,
@@ -97,7 +111,8 @@ if __name__ == '__main__':
         'logins': login_success,
         'any': any_value,
         'duration': duration,
-        'duration2': duration2
+        'duration2': duration2,
+        'fm': field_mask
     }
 
     if len(sys.argv) != 2:
