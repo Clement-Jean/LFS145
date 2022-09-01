@@ -9,6 +9,7 @@ import google.protobuf.any_pb2 as any_pb
 import google.protobuf.duration_pb2 as duration_pb
 import google.protobuf.field_mask_pb2 as field_mask_pb
 import google.protobuf.struct_pb2 as struct_pb
+import google.protobuf.timestamp_pb2 as timestamp_pb
 
 def account():
     return account_pb.Account(
@@ -87,6 +88,11 @@ def duration2():
     d.FromTimedelta(td)
     return d
 
+def timestamp():
+    t = timestamp_pb.Timestamp()
+    t.GetCurrentTime()
+    return t
+
 def field_mask():
     acc = account()
     print(acc)
@@ -143,6 +149,7 @@ if __name__ == '__main__':
         'fm': field_mask,
         'fm2': field_mask2,
         'struct': struct,
+        'time': timestamp
     }
 
     if len(sys.argv) != 2:
