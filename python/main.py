@@ -11,6 +11,7 @@ import google.protobuf.timestamp_pb2 as timestamp_pb
 import google.protobuf.field_mask_pb2 as field_mask_pb
 import google.protobuf.struct_pb2 as struct_pb
 import google.protobuf.wrappers_pb2 as wrappers_pb
+import google.protobuf.json_format as json_format
 
 def account():
     return account_pb.Account(
@@ -148,6 +149,46 @@ def wrapper():
         # etc...
     ]
 
+def to_json(message):
+	return json_format.MessageToJson(
+		message,
+		indent=None,
+		# preserving_proto_field_name=True
+	)
+
+def from_json(json_str, type):
+	return json_format.Parse(
+		json_str,
+		type(),
+		ignore_unknown_fields=True
+	)
+
+def file():
+    acc = account()
+    path = "simple.bin"
+
+    print("--Write to file--")
+    print(acc)
+    with open(path, "wb") as f:
+        bytes_as_str = acc.SerializeToString()
+        f.write(bytes_as_str)
+
+    print("--Read from file--")
+    with open(path, "rb") as f:
+        t = type(acc)
+        acc = t().FromString(f.read())
+
+    print(acc)
+
+def json():
+    acc = account()
+    json_str = to_json(acc)
+    print(json_str)
+    print('-------------------')
+    print(from_json(json_str, account_pb.Account))
+    print('--------------')
+    print(from_json('{"id": 42, "unknown": "test"}', account_pb.Account))
+
 if __name__ == '__main__':
     fns = {
         'account': account,
@@ -166,7 +207,9 @@ if __name__ == '__main__':
         'fm2': field_mask2,
         'struct': struct,
         'struct2': struct2,
-        'wrapper': wrapper
+        'wrapper': wrapper,
+        'file': file,
+        'json': json,
     }
 
     if len(sys.argv) != 2:
