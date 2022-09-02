@@ -219,7 +219,7 @@ if __name__ == '__main__':
     fn = fns.get(sys.argv[1], None)
 
     if not fn:
-        print(f'Unknown function: \"{sys.argv[1]}\"proto')
+        print(f'Unknown function: \"{sys.argv[1]}\"')
         sys.exit()
 
     print(fn())
