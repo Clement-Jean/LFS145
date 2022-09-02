@@ -150,35 +150,18 @@ def wrapper():
     ]
 
 def to_json(message):
-	return json_format.MessageToJson(
+    return json_format.MessageToJson(
 		message,
 		indent=None,
 		# preserving_proto_field_name=True
 	)
 
 def from_json(json_str, type):
-	return json_format.Parse(
+    return json_format.Parse(
 		json_str,
 		type(),
 		ignore_unknown_fields=True
 	)
-
-def file():
-    acc = account()
-    path = 'simple.bin'
-
-    print('--Write to file--')
-    print(acc)
-    with open(path, 'wb') as f:
-        bytes_as_str = acc.SerializeToString()
-        f.write(bytes_as_str)
-
-    print('--Read from file--')
-    with open(path, 'rb') as f:
-        t = type(acc)
-        acc = t().FromString(f.read())
-
-    print(acc)
 
 def json():
     acc = account()
@@ -188,6 +171,23 @@ def json():
     print(from_json(json_str, account_pb.Account))
     print('--------------')
     print(from_json('{"id": 42, "unknown": "test"}', account_pb.Account))
+
+def file():
+    acc = account()
+    path = 'account.bin'
+
+    print('--Write to file--')
+    print(acc)
+    with open(path, 'wb') as f:
+        bytes_str = acc.SerializeToString()
+        f.write(bytes_str)
+
+    print('--Read from file--')
+    with open(path, 'rb') as f:
+        t = type(acc)
+        acc = t().FromString(f.read())
+
+    print(acc)
 
 if __name__ == '__main__':
     fns = {
@@ -208,8 +208,8 @@ if __name__ == '__main__':
         'struct': struct,
         'struct2': struct2,
         'wrapper': wrapper,
-        'file': file,
         'json': json,
+        'file': file,
     }
 
     if len(sys.argv) != 2:
