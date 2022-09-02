@@ -11,7 +11,7 @@ import google.protobuf.timestamp_pb2 as timestamp_pb
 import google.protobuf.field_mask_pb2 as field_mask_pb
 import google.protobuf.struct_pb2 as struct_pb
 import google.protobuf.wrappers_pb2 as wrappers_pb
-import google.protobuf.json_format as json_format
+from google.protobuf import json_format
 
 def account():
     return account_pb.Account(
@@ -124,10 +124,10 @@ def field_mask2():
 def struct():
     return struct_pb.Struct(
         fields={
-            "id": struct_pb.Value(number_value=42.0),
-            "name": struct_pb.Value(string_value="Linus Torvalds"),
-            "is_verified": struct_pb.Value(bool_value=True),
-            "follow_ids": struct_pb.Value(list_value=struct_pb.ListValue(
+            'id': struct_pb.Value(number_value=42.0),
+            'name': struct_pb.Value(string_value='Linus Torvalds'),
+            'is_verified': struct_pb.Value(bool_value=True),
+            'follow_ids': struct_pb.Value(list_value=struct_pb.ListValue(
                 values=[
                     struct_pb.Value(number_value=float(0)),
                     struct_pb.Value(number_value=float(1)),
@@ -165,16 +165,16 @@ def from_json(json_str, type):
 
 def file():
     acc = account()
-    path = "simple.bin"
+    path = 'simple.bin'
 
-    print("--Write to file--")
+    print('--Write to file--')
     print(acc)
-    with open(path, "wb") as f:
+    with open(path, 'wb') as f:
         bytes_as_str = acc.SerializeToString()
         f.write(bytes_as_str)
 
-    print("--Read from file--")
-    with open(path, "rb") as f:
+    print('--Read from file--')
+    with open(path, 'rb') as f:
         t = type(acc)
         acc = t().FromString(f.read())
 
