@@ -8,9 +8,9 @@ public class App {
     private static void readFrom(String path) {
         try {
             FileInputStream fis = new FileInputStream(path);
-            Account message = Account.parseFrom(fis);
+            Account account = Account.parseFrom(fis);
 
-            System.out.println(message);
+            System.out.println(account);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -18,7 +18,7 @@ public class App {
 
     public static void main(String[] args) {
         if (args.length != 1) {
-            System.out.println("The program need one argument!");
+            System.out.println("The program needs one argument!");
             return;
         }
 
