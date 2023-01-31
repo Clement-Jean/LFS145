@@ -22,6 +22,6 @@ public class App {
             return;
         }
 
-        readFrom(args[0]);   
+        readFrom(args[0]);
     }
 }
